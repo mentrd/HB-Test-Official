@@ -1206,3 +1206,22 @@ em.t3 {
     display: none;
   }
 }
+
+/* 排行榜名字至少留 4 個字寬，金額縮小，避免名字被擠成單字 */
+.w-rank {
+  width: 26%;
+}
+.w-rank-row span {
+  min-width: 4em;
+}
+.w-rank-row em {
+  font-size: 0.9em;
+}
+
+/* 超級通知的圖縮小，整體高度不超過畫面一半多一點 */
+.alert.t3 .alert-art {
+  width: 5em;
+}
+.alert.t3 {
+  padding: 1em 1.4em;
+}
