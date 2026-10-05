@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; frame-src 'self'; base-uri 'self'; form-action 'none'"
+    />
+    <meta name="theme-color" content="#0e0a18" />
+    <meta name="description" content="HiveBee 直播贊助工具的概念示範：跟著實況主開一場台，看一筆贊助怎麼變成直播裡的精彩時刻。" />
+    <title>HiveBee｜讓每一次支持，都成為直播裡的精彩時刻</title>
+    <link rel="icon" href="brand/mark.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Outfit:wght@600;800&display=swap"
+    />
+  </head>
+  <body>
+    <div id="vh-probe" aria-hidden="true"></div>
+
+    <div class="film-layer" aria-hidden="true">
+      <img id="still-a" class="film-still is-on" alt="" />
+      <img id="still-b" class="film-still" alt="" />
+      <video id="film" class="film-video" muted playsinline preload="none" disablepictureinpicture disableremoteplayback></video>
+      <div class="veil"></div>
+    </div>
+    <div class="loader" id="loader" aria-hidden="true"><span></span></div>
+
+    <header class="hdr">
+      <a class="hdr-brand" href="./" aria-label="HiveBee 宣傳站首頁"><img src="brand/logo-dark.svg" alt="HiveBee" /></a>
+      <span class="hdr-note">概念示範・非正式服務頁</span>
+      <a class="btn btn--honey btn--sm hdr-cta" data-signup target="_blank" rel="noopener">開始使用</a>
+    </header>
+    <nav class="chapters" id="chapters" aria-label="章節"></nav>
+
+    <div class="screens" aria-hidden="true">
+      <div class="phone" id="phone">
+        <div class="phone-status"><span>21:08</span><i class="phone-island"></i><span>5G</span></div>
+        <div class="phone-screen"><iframe id="phone-frame" class="scr" title="觀眾贊助頁" tabindex="-1"></iframe></div>
+        <div class="phone-bar"><span class="url">hivebee.com.tw/mimi/donate</span></div>
+      </div>
+      <div class="browser" id="browser">
+        <div class="browser-bar">
+          <span class="browser-dots"><i></i><i></i><i></i></span>
+          <span class="url">OBS 預覽・HiveBee 直播工具</span>
+        </div>
+        <div class="browser-screen"><iframe id="browser-frame" class="scr" title="直播畫面" tabindex="-1"></iframe></div>
+      </div>
+      <p class="chip-stat" id="chip"></p>
+    </div>
+
+    <main id="main">
+      <div id="story"></div>
+
+      <section class="explore" id="explore" aria-labelledby="explore-t">
+        <div class="explore-head">
+          <p class="kicker">互動示範</p>
+          <h2 class="explore-t" id="explore-t">自己玩一次</h2>
+          <p class="explore-s">
+            觀眾贊助頁、直播畫面、通知樣式、套件中心和創作者後台，都在這個分頁裡模擬。送出贊助後，直接看通知跳上實況主的畫面。
+          </p>
+        </div>
+        <div class="launch" role="group" aria-label="切換示範畫面">
+          <button class="launch-b" type="button" data-screen="loop" aria-pressed="true">完整流程</button>
+          <button class="launch-b" type="button" data-screen="donate" aria-pressed="false">觀眾贊助頁</button>
+          <button class="launch-b" type="button" data-screen="stream" aria-pressed="false">直播畫面</button>
+          <button class="launch-b" type="button" data-screen="styles" aria-pressed="false">通知樣式</button>
+          <button class="launch-b" type="button" data-screen="plugins" aria-pressed="false">套件中心</button>
+          <button class="launch-b" type="button" data-screen="dashboard" aria-pressed="false">創作者後台</button>
+          <a class="launch-fs" id="launch-fs" href="demo/index.html?screen=loop" target="_blank" rel="noopener">全螢幕開啟</a>
+        </div>
+        <div class="xwin">
+          <div class="browser-bar">
+            <span class="browser-dots"><i></i><i></i><i></i></span>
+            <span class="url">HiveBee 互動示範</span>
+          </div>
+          <iframe id="xframe" class="xframe" title="HiveBee 互動示範" src="demo/index.html?embed&amp;screen=loop" loading="lazy"></iframe>
+        </div>
+        <p class="explore-mobile"><a class="btn btn--honey" href="demo/index.html">打開互動示範</a></p>
+      </section>
+
+      <footer class="ftr">
+        <div class="ftr-acts">
+          <a class="btn btn--honey" data-signup target="_blank" rel="noopener">開始使用 HiveBee</a>
+          <a class="btn btn--line" data-manual target="_blank" rel="noopener">使用手冊</a>
+        </div>
+        <p>本站是 HiveBee 的<b>概念示範</b>，不是正式服務頁面：示範不會付款，也不會連到任何直播。</p>
+        <p class="fine">
+          影片中的實況主 Mimi 與觀眾為示範角色。贊助者暱稱、金額與後台數據皆為示意；套件中心內的套件為示意範例。費用與開通方式以 HiveBee 官網公告為準。
+        </p>
+      </footer>
+    </main>
+
+    <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-t" hidden>
+      <button class="sheet-back" type="button" data-close tabindex="-1" aria-label="關閉"></button>
+      <div class="sheet-panel">
+        <div class="sheet-head">
+          <h2 class="sheet-t" id="sheet-t">畫面</h2>
+          <button class="sheet-x btn btn--line btn--sm" type="button" data-close>關閉</button>
+        </div>
+        <div class="sheet-screen"><iframe id="sheet-frame" class="scr" title="示範畫面"></iframe></div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/story/main.ts"></script>
+  </body>
+</html>

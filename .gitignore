@@ -1,0 +1,7 @@
+node_modules/
+dist/
+video/raw/*
+!video/raw/.gitkeep
+.env*
+*.log
+video/.work/
