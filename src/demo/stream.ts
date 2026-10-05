@@ -12,7 +12,7 @@ export interface StreamStyle {
   anim: Anim;
 }
 
-const MARK = './brand/mark.svg';
+const MARK = '../brand/mark.svg';
 
 export function h<K extends keyof HTMLElementTagNameMap>(tag: K, cls = '', text?: string) {
   const el = document.createElement(tag);
