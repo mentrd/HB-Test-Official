@@ -19,6 +19,7 @@ export interface Beat {
   chip?: [string, string];
 }
 
+// 文案只描述 HiveBee 現有功能；示範畫面對應 demo/ 的 screen 與參數。
 export const BEATS: Beat[] = [
   { id: 'hero', card: 'hero', hold: 1.1 },
   {
@@ -28,7 +29,7 @@ export const BEATS: Beat[] = [
     nav: '開播',
     kicker: '01・開播前',
     title: '你專心創作，讓支持自然發生',
-    sub: '通知、留言卡片、排行榜、目標進度條，複製網址貼進 OBS 就上線。',
+    sub: '通知、卡片、互動目標、倒數計時，從直播互動箱複製網址貼進 OBS 就上線。',
     scene: { device: 'browser', screen: 'stream', params: 'auto&build' },
   },
   {
@@ -38,7 +39,7 @@ export const BEATS: Beat[] = [
     nav: '觀眾支持',
     kicker: '02・觀眾支持',
     title: '一句留言，一份支持',
-    sub: '觀眾打開你的贊助頁，選文字、影音、塗鴉或猜謎，用信用卡、ATM、超商代碼或 PayPal 完成支持。',
+    sub: '觀眾打開你的贊助頁，選擇文字、猜獎、任務、猜謎、塗鴉或影音贊助，用信用卡、ATM、超商代碼或 PayPal 完成支持。',
     scene: { device: 'phone', screen: 'donate', params: 'auto' },
   },
   {
@@ -48,9 +49,9 @@ export const BEATS: Beat[] = [
     nav: '互動出現',
     kicker: '03・互動出現',
     title: '支持，不只停在付款完成',
-    sub: '付款一完成，通知立刻跳上直播畫面：暱稱、金額、留言，還有你設定的動畫與音效。',
-    scene: { device: 'browser', screen: 'stream', params: 'auto&tier=2' },
-    chip: ['新贊助', 'NT$300'],
+    sub: '付款一完成，通知立刻跳上直播畫面：暱稱、金額、留言，加上你設定的圖片、音效與文字特效。',
+    scene: { device: 'browser', screen: 'stream', params: 'auto&amount=300' },
+    chip: ['新贊助', 'TWD 300'],
   },
   {
     id: 'c04',
@@ -59,9 +60,9 @@ export const BEATS: Beat[] = [
     nav: '目標達成',
     kicker: '04・目標達成',
     title: '進度條衝滿的那一刻，全場一起歡呼',
-    sub: '通知依金額分級，大額支持配上斗內掉落與更大的舞台，目標進度條同步更新。',
-    scene: { device: 'browser', screen: 'stream', params: 'auto&tier=3&fill' },
-    chip: ['今晚目標', '100%'],
+    sub: '大額支持換上專屬的通知模式，卡片依金額變色，互動目標與倒數計時同步更新。',
+    scene: { device: 'browser', screen: 'stream', params: 'auto&amount=3000&fill' },
+    chip: ['互動目標', '100%'],
   },
   {
     id: 'c05',
@@ -70,8 +71,8 @@ export const BEATS: Beat[] = [
     nav: '你的風格',
     kicker: '05・你的風格',
     title: '讓互動，融入你的直播風格',
-    sub: '版面、配色、動畫、音效與金額門檻都能自訂，留言卡片、倒數計時、發燒列車也能一起換裝。',
-    scene: { device: 'browser', screen: 'styles', params: 'auto' },
+    sub: '依金額區間設定不同的通知模式：圖片、音效、回覆文字、字型與文字特效都能自訂，還能用文字轉語音唸出留言。',
+    scene: { device: 'browser', screen: 'dashboard', params: 'page=alert&auto' },
   },
   {
     id: 'c06',
@@ -80,8 +81,8 @@ export const BEATS: Beat[] = [
     nav: '套件中心',
     kicker: '06・套件中心',
     title: '想要新玩法？到套件中心裝一個',
-    sub: '在套件商店挑選互動套件，一鍵裝到直播畫面；開發者也能用 AI 做出自己的套件並上架。',
-    scene: { device: 'browser', screen: 'plugins', params: 'auto' },
+    sub: '在套件中心挑選互動套件，安裝後取得 OBS 網址就能用；開發者也能用 AI 做出自己的套件並上架。',
+    scene: { device: 'browser', screen: 'dashboard', params: 'page=plugins&auto' },
   },
   {
     id: 'c07',
@@ -90,8 +91,8 @@ export const BEATS: Beat[] = [
     nav: '回到後台',
     kicker: '07・回到後台',
     title: '精彩留在畫面，紀錄清楚掌握',
-    sub: '下播後打開後台，每筆贊助、留言與統計都在這裡，還能匯出對帳。',
-    scene: { device: 'browser', screen: 'dashboard', params: 'auto' },
+    sub: '下播後打開後台，即時事件、收入統計與贊助金額趨勢一目了然，贊助歷史還能匯出查詢結果。',
+    scene: { device: 'browser', screen: 'dashboard', params: 'page=overview&auto' },
     chip: ['即時事件', '同步更新'],
   },
   {

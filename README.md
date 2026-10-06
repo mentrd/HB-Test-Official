@@ -8,7 +8,8 @@ HiveBee 直播贊助工具的**概念示範站**，用來測試「捲動影片�
 | 路徑 | 內容 |
 |---|---|
 | `index.html`、`src/story/` | 故事頁：背景影片跟著捲動播放，前景的手機、瀏覽器框同步顯示示範畫面 |
-| `demo/index.html`、`src/demo/` | 互動示範：觀眾贊助頁、直播畫面、通知樣式、套件中心、創作者後台 |
+| `demo/index.html`、`src/demo/` | 互動示範：觀眾贊助頁、直播畫面（OBS 工具）、創作者後台（總覽、即時事件、互動工具箱、通知設定、套件中心）。版面與預設值對齊 HiveBee 正式站 |
+| `public/hb/` | HiveBee 品牌素材（Logo、icon、吉祥物、工具預覽），來源見 ASSETS.md |
 | `src/story/beats.ts` | 各章節的文案、對應鏡頭與示範畫面 |
 | `src/film-manifest.ts` | 影片設定，由 `npm run encode` 產生 |
 | `video/SHOTLIST.md` | 真人影片的分鏡、構圖規則與 AI 生成提示詞 |
@@ -21,6 +22,7 @@ npm install
 npm run dev        # 本機開發
 npm run build      # 建置到 dist/
 npm run preview    # 預覽建置結果
+node scripts/fetch-icons.mjs   # 重新下載後台圖示（需要網路）
 ```
 
 ## 放入真人影片
