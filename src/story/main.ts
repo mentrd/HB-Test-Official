@@ -38,6 +38,8 @@ function cardHTML(b: Beat) {
   if (b.card === 'hero')
     return `
       <div class="hcard hcard--hero">
+        <img class="hcard-art a1" src="hb/3d/bee-laptop.webp" alt="">
+        <img class="hcard-art a2" src="hb/3d/pot-crown.webp" alt="">
         <p class="hero-tag">HiveBee｜創作者工具平台</p>
         <h1 class="hero-t">讓每一次支持，<br>都成為直播裡的<span>精彩時刻</span></h1>
         <p class="hero-s">跟著實況主 Mimi 開一場台，看一筆贊助怎麼變成全場的高潮。</p>
@@ -46,6 +48,7 @@ function cardHTML(b: Beat) {
   if (b.card === 'finale')
     return `
       <div class="hcard hcard--finale">
+        <img class="hcard-art a3" src="hb/3d/bee-peek.webp" alt="">
         <h2 class="hero-t">先體驗，<br>再開始你的<span>下一場直播</span></h2>
         <div class="acts">
           <button class="btn btn--primary btn--3xl" type="button" data-goto="explore">自己玩一次</button>

@@ -1,4 +1,4 @@
-import { EFFECTS, GAMES, TOOLS, asset, tierColor, twd } from '../shared/brand';
+import { EFFECTS, GAMES, TOOLS, asset, logo as brandLogo, tierColor } from '../shared/brand';
 import { icon, type IconName } from '../shared/icons';
 import { PLUGINS, SAMPLE_FANS, bus, donate, install, preview, rank, state, type AlertMode, type Donation } from './state';
 import { createStream, h, renderReply } from './stream';
@@ -74,13 +74,13 @@ const NAV: NavItem[] = [
 export function dashboardView(ctx: Ctx): View {
   const el = h('div', 'db');
   const header = h('header', 'db-head');
-  const logo = img('hb/logo.svg', 'db-logo', 'HiveBee');
+  const logo = brandLogo('db-logo');
   const bell = h('span', 'db-bell');
   bell.innerHTML = icon('bell');
   const unread = h('b', 'db-bell-n');
   bell.append(unread);
   const userPill = h('span', 'db-user');
-  userPill.append(img('hb/img/default_head.png', 'db-user-av'), h('b', '', 'Mimi 蜜蜜'));
+  userPill.append(img('hb/3d/bee-chill.webp', 'db-user-av'), h('b', '', 'Mimi 蜜蜜'));
   userPill.insertAdjacentHTML('beforeend', icon('menuRight'));
   const headRight = h('div', 'db-head-r');
   headRight.append(bell, userPill);
@@ -145,28 +145,70 @@ export function dashboardView(ctx: Ctx): View {
     content.replaceChildren(render());
   }
 
-  /* ---------------------------------------------------------------- 總覽 */
+  /* ---------------------------------------------------------------- 總覽（HiveBee 2.0 版面） */
   function overview() {
     const w = h('div', 'pg');
-    w.append(pageHead('👋🏻 您好，歡迎回來！', '在這裡掌握直播互動與收入概況。'));
+    w.append(pageHead('👋🏻 您好，歡迎回來！', '在這裡，您可以輕鬆查看所有與您的直播成效相關的指標，以便快速瞭解您的表現。'));
 
-    const infoBox = box('我的創作者頁面');
-    const link = h('div', 'url-row');
+    // 我的創作者頁面＋審核事件統計
+    const top = h('div', 'ov-top');
+    const pageCard = h('section', 'box ov-page');
+    const cover = h('div', 'ov-cover');
+    for (const [art, cls] of [['bee-tablet', 'c1'], ['pot-honey', 'c2']]) cover.append(img(`hb/3d/${art}.webp`, `ov-cover-art ${cls}`));
+    const who = h('div', 'ov-who');
+    who.append(img('hb/3d/bee-chill.webp', 'ov-avatar'), h('b', '', 'Mimi 蜜蜜'));
+    const link = h('div', 'url-row ov-url');
     link.append(h('span', 'url-text', 'https://www.hivebee.com.tw/mimi/donate'));
     link.insertAdjacentHTML('beforeend', `<span class="url-ic">${icon('copy')}</span><span class="url-ic">${icon('open')}</span>`);
-    infoBox.append(link);
+    pageCard.append(cover, who, h('p', 'ov-small', '我的贊助頁面'), link);
+
+    const review = box('審核事件統計', 'ov-review');
+    const rv = h('div', 'ov-rv');
+    const done = h('div', 'ov-rv-c');
+    done.append(h('p', 'ov-small', '已審核事件'), h('b', '', '12'));
+    const pending = h('div', 'ov-rv-c is-alert');
+    const goReview = h('button', 'btn btn--primary btn--sm', '立即審核 →');
+    goReview.type = 'button';
+    goReview.addEventListener('click', () => go('missions'));
+    pending.append(h('p', 'ov-small', '未審核事件'), h('b', '', '3'), goReview);
+    rv.append(done, pending);
+    const kinds = h('div', 'ov-kinds');
+    for (const k of ['猜獎贊助', '任務贊助', '猜謎贊助', '塗鴉贊助', '影音贊助']) {
+      const c = h('div');
+      c.append(h('p', 'ov-small', k), h('b', '', '3'));
+      kinds.append(c);
+    }
+    review.append(rv, kinds);
+    top.append(pageCard, review);
 
     const events = box('即時事件', 'ov-events');
-    const more = h('button', 'btn btn--outline-neutral btn--pill btn--sm ov-more', '查看全部事件 ›');
+    const more = h('button', 'btn btn--outline-neutral btn--sm ov-more', '查看全部事件 →');
     more.type = 'button';
     more.addEventListener('click', () => go('missions'));
     events.append(more);
     const list = h('div', 'ev-list');
     events.append(list);
 
+    // 喜愛工具：用 3D 圖示對應功能
+    const fav = box('喜愛工具', 'ov-fav');
+    const favItems: Array<[string, string, string, Page]> = [
+      ['film', '影音贊助', '接受贊助者的影片，即時在直播中展示！', 'toolbox'],
+      ['bell', '通知', '依金額跳出不同的感謝畫面，讓粉絲感受到滿滿的誠意。', 'alert'],
+    ];
+    for (const [art, name, desc, target] of favItems) {
+      const r = h('div', 'ov-fav-row');
+      const t = h('div');
+      t.append(h('b', '', name), h('p', 'ov-small', desc));
+      const g = h('button', 'ov-fav-go', '前往設定 →');
+      g.type = 'button';
+      g.addEventListener('click', () => go(target));
+      r.append(img(`hb/3d/${art}.webp`, 'ov-fav-ic'), t, g);
+      fav.append(r);
+    }
+
     const count = box('收入統計');
-    const stats = h('div', 'ov-stats');
-    count.append(h('p', 'box-d', '依篩選條件計算（示意數據）'), stats);
+    const stats = h('div', 'ov-income');
+    count.append(stats);
 
     const chart = box('贊助金額趨勢');
     const chartArea = h('div', 'ov-chart');
@@ -178,26 +220,26 @@ export function dashboardView(ctx: Ctx): View {
 
     const two = h('div', 'ov-two');
     two.append(chart, rankBox);
-    w.append(infoBox, events, count, two);
+    w.append(top, events, fav, count, two);
 
     function render(fresh?: Donation) {
-      list.replaceChildren(...state.events.slice(0, 4).map((e) => eventRow(e, fresh)));
+      list.replaceChildren(...state.events.slice(0, 3).map((e) => eventRow(e, fresh)));
       const total = state.events.reduce((s, e) => s + e.amount, 0);
       const people = new Set(state.events.map((e) => e.name)).size;
-      const stat = (label: string, value: string, ic: string) => {
-        const s = h('div', 'ov-stat');
-        const i = h('span', 'ov-stat-ic');
-        i.append(img(`hb/icons/${ic}.svg`));
+      const stat = (label: string, value: string, art: string, money = true) => {
+        const c = h('div', 'ov-inc');
         const t = h('div');
-        t.append(h('p', 'ov-stat-l', label), h('p', 'ov-stat-v', value));
-        s.append(i, t);
-        return s;
+        const v = h('p', 'ov-inc-v');
+        if (money) v.append(h('small', '', 'TWD '));
+        v.append(value);
+        t.append(h('p', 'ov-small', label), v);
+        c.append(img(`hb/3d/${art}.webp`, 'ov-inc-art'), t);
+        return c;
       };
       stats.replaceChildren(
-        stat('總贊助數量', `${state.events.length}`, 'Number'),
-        stat('贊助金額', total.toLocaleString('en-US'), 'Money'),
-        stat('贊助者人數', `${people}`, 'People'),
-        stat('收入金額', Math.round(total * 0.95).toLocaleString('en-US'), 'Money2'),
+        stat('贊助總金額', total.toLocaleString('en-US'), 'pot-honey'),
+        stat('贊助者人數', String(people), 'pot-crown', false),
+        stat('收入金額', Math.round(total * 0.95).toLocaleString('en-US'), 'pot-coin'),
       );
       chartArea.innerHTML = lineChart(total);
       rankList.replaceChildren(
@@ -207,8 +249,9 @@ export function dashboardView(ctx: Ctx): View {
             const r = h('div', `rk-row r${i + 1}`);
             const left = h('span', 'rk-l');
             if (i < 3) left.innerHTML = icon('medal');
-            left.append(`${i + 1}　${name}`);
-            r.append(left, h('span', 'rk-r', `贊助總計 ${sum.toLocaleString('en-US')} 元`));
+            else left.append(h('i', 'rk-n', String(i + 1)));
+            left.append(name);
+            r.append(left, h('span', 'rk-r', `${sum.toLocaleString('en-US')} 元`));
             return r;
           }),
       );
@@ -224,13 +267,19 @@ export function dashboardView(ctx: Ctx): View {
     const r = h('div', `ev-row${e.read ? ' is-read' : ''}${fresh?.id === e.id ? ' is-new' : ''}`);
     const pf = h('span', 'ev-pf');
     pf.append(img('hb/mark.svg'));
+    const body = h('div', 'ev-body');
     const t = h('p', 'ev-t');
-    t.append('您有一個來自 ', h('b', '', e.name), ` 的 TWD ${e.amount.toLocaleString('en-US')} 元 `);
+    t.append('您有一個來自 ', h('b', '', e.name), ' 的 ', h('em', 'ev-amt', `TWD ${e.amount.toLocaleString('en-US')} 元`), ' ');
     t.append(img(`hb/icons/${typeIconOf(e.type)}.svg`, 'ev-type-ic'), h('b', '', e.type));
-    r.append(pf, t);
+    const when = e.at.toLocaleString('zh-TW', { hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    body.append(t);
+    if (e.message) body.append(h('p', 'ev-msg', e.message));
+    body.append(h('p', 'ev-when', when));
+    r.append(pf, body);
     return r;
   }
 
+  // 贊助金額趨勢：HiveBee 2.0 改用品牌黃的面積圖
   function lineChart(total: number) {
     const pts = [1200, 900, 2100, 1600, 2800, 2300, Math.max(800, total / 2)];
     const max = Math.max(...pts) * 1.15;
@@ -239,13 +288,14 @@ export function dashboardView(ctx: Ctx): View {
     const xy = pts.map((v, i) => [(i / (pts.length - 1)) * W, H - (v / max) * H]);
     const line = xy.map(([x, y], i) => `${i ? 'L' : 'M'}${x.toFixed(1)} ${y.toFixed(1)}`).join(' ');
     const days = ['一', '二', '三', '四', '五', '六', '日'];
-    const grid = [0.25, 0.5, 0.75].map((f) => `<line x1="0" x2="${W}" y1="${H * f}" y2="${H * f}" stroke="#E9E9E9"/>`).join('');
+    const grid = [0.25, 0.5, 0.75, 1].map((f) => `<line x1="0" x2="${W}" y1="${H * f}" y2="${H * f}" stroke="currentColor" stroke-opacity=".12"/>`).join('');
     return `<svg viewBox="0 -10 ${W} ${H + 40}" role="img" aria-label="本週贊助金額趨勢（示意）">
+      <defs><linearGradient id="gold-area" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F5B000" stop-opacity=".45"/><stop offset="1" stop-color="#F5B000" stop-opacity="0"/></linearGradient></defs>
       ${grid}
-      <path d="${line} L${W} ${H} L0 ${H} Z" fill="rgba(227,207,251,.46)"/>
-      <path d="${line}" fill="none" stroke="#BA87F4" stroke-width="3"/>
-      ${xy.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="4" fill="#BA87F4"/>`).join('')}
-      ${days.map((d, i) => `<text x="${(i / 6) * W}" y="${H + 26}" font-size="13" fill="#8C8C8C" text-anchor="${i === 0 ? 'start' : i === 6 ? 'end' : 'middle'}">週${d}</text>`).join('')}
+      <path d="${line} L${W} ${H} L0 ${H} Z" fill="url(#gold-area)"/>
+      <path d="${line}" fill="none" stroke="#F5B000" stroke-width="3"/>
+      ${xy.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="4" fill="#F5B000"/>`).join('')}
+      ${days.map((d, i) => `<text x="${(i / 6) * W}" y="${H + 26}" font-size="13" fill="currentColor" fill-opacity=".5" text-anchor="${i === 0 ? 'start' : i === 6 ? 'end' : 'middle'}">週${d}</text>`).join('')}
     </svg>`;
   }
 

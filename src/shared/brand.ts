@@ -14,16 +14,18 @@ export interface DonateType {
   clip: string;
   enabled: boolean;
   desc: string;
+  /** HiveBee 2.0 的 3D 插圖（public/hb/3d） */
+  art: string;
 }
 
 // 名稱、icon、預覽圖對齊前台 donateTypes.ts；示範只開放文字贊助。
 export const DONATE_TYPES: DonateType[] = [
-  { key: 'text', name: '文字贊助', icon: 'H', clip: 'alert', enabled: true, desc: '輸入暱稱、金額與留言，付款完成後立即在直播畫面跳出通知與卡片。' },
-  { key: 'guess', name: '猜獎贊助', icon: 'Bee', clip: 'guess', enabled: false, desc: '透過贊助者發送的「幸運寶箱」，在直播中與彼此互動，一同享受開盲盒的刺激時光。' },
-  { key: 'challenge', name: '任務贊助', icon: 'Nest', clip: 'challenge', enabled: false, desc: '迎接挑戰！接受贊助者發起的任務，在有限時間內完成，爭取豐富獎勵，一起玩得開心！' },
-  { key: 'qa', name: '猜謎贊助', icon: 'Flower', clip: 'qa', enabled: false, desc: '參與由贊助者發起的猜謎活動，一邊在直播中猜對正確答案，一邊與粉絲互動，打造有趣的觀看體驗！' },
-  { key: 'paint', name: '塗鴉贊助', icon: 'Lollipop', clip: 'paint', enabled: false, desc: '接受贊助者的塗鴉，即時在直播中展示！豐富您的直播空間，拉近與贊助者和觀眾之間的互動距離！' },
-  { key: 'media', name: '影音贊助', icon: 'Drop2', clip: 'media', enabled: false, desc: '接受贊助者的影片，即時在直播中展示！依影片秒數計價，主播可設定審核後才播放。' },
+  { key: 'text', name: '文字贊助', icon: 'H', clip: 'alert', enabled: true, desc: '輸入暱稱、金額與留言，付款完成後立即在直播畫面跳出通知與卡片。', art: 'bee-chill' },
+  { key: 'guess', name: '猜獎贊助', icon: 'Bee', clip: 'guess', enabled: false, desc: '透過贊助者發送的「幸運寶箱」，在直播中與彼此互動，一同享受開盲盒的刺激時光。', art: 'pot-crown' },
+  { key: 'challenge', name: '任務贊助', icon: 'Nest', clip: 'challenge', enabled: false, desc: '迎接挑戰！接受贊助者發起的任務，在有限時間內完成，爭取豐富獎勵，一起玩得開心！', art: 'bee-laptop' },
+  { key: 'qa', name: '猜謎贊助', icon: 'Flower', clip: 'qa', enabled: false, desc: '參與由贊助者發起的猜謎活動，一邊在直播中猜對正確答案，一邊與粉絲互動，打造有趣的觀看體驗！', art: 'bee-tablet' },
+  { key: 'paint', name: '塗鴉贊助', icon: 'Lollipop', clip: 'paint', enabled: false, desc: '接受贊助者的塗鴉，即時在直播中展示！豐富您的直播空間，拉近與贊助者和觀眾之間的互動距離！', art: 'bee-peek' },
+  { key: 'media', name: '影音贊助', icon: 'Drop2', clip: 'media', enabled: false, desc: '接受贊助者的影片，即時在直播中展示！依影片秒數計價，主播可設定審核後才播放。', art: 'film' },
 ];
 
 // 贊助頁金額滑桿刻度與最低金額，對齊前台 MoneyList。
@@ -71,3 +73,11 @@ export const GAMES = [
 
 export const dollars = (n: number) => `$${n.toLocaleString('en-US')}`;
 export const twd = (n: number) => `${n.toLocaleString('en-US')} TWD`;
+
+/** 同時放淺色與深色背景版 Logo，由 [data-theme] 決定顯示哪一個 */
+export function logo(cls = '') {
+  const wrap = document.createElement('span');
+  wrap.className = `logo ${cls}`;
+  wrap.innerHTML = `<img class="logo-l" src="${asset('hb/logo.svg')}" alt="HiveBee"><img class="logo-d" src="${asset('hb/logo-dark.svg')}" alt="HiveBee">`;
+  return wrap;
+}

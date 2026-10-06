@@ -1,4 +1,4 @@
-import { DONATE_TYPES, MIN_AMOUNT, SLIDER_TICKS, asset } from '../shared/brand';
+import { DONATE_TYPES, MIN_AMOUNT, SLIDER_TICKS, asset, logo as brandLogo } from '../shared/brand';
 import { icon } from '../shared/icons';
 import { SAMPLE_FANS, donate } from './state';
 import { h } from './stream';
@@ -31,9 +31,7 @@ export function donateView(): View {
 
   /* 左側欄（寬版才顯示） */
   const side = h('aside', 'dn-side');
-  const logo = h('img', 'dn-logo');
-  logo.src = asset('hb/logo.svg');
-  logo.alt = 'HiveBee';
+  const logo = brandLogo('dn-logo');
   const login = h('button', 'btn btn--primary dn-login', '登入');
   login.type = 'button';
   login.disabled = true;
@@ -68,15 +66,17 @@ export function donateView(): View {
 
   const main = h('main', 'dn-main');
 
-  /* 創作者資訊 */
+  /* 創作者資訊：橫幅與頭像改用 HiveBee 2.0 的 3D 蜜蜂 */
   const banner = h('div', 'dn-banner');
-  const bannerBee = h('img');
-  bannerBee.src = asset('hb/img/work.png');
-  bannerBee.alt = '';
-  banner.append(bannerBee);
+  for (const [art, cls] of [['bee-tablet', 'b1'], ['bee-laptop', 'b2'], ['pot-crown', 'b3']]) {
+    const im = h('img', `dn-banner-art ${cls}`);
+    im.src = asset(`hb/3d/${art}.webp`);
+    im.alt = '';
+    banner.append(im);
+  }
   const user = h('div', 'dn-user');
   const avatar = h('img', 'dn-avatar');
-  avatar.src = asset('hb/img/default_head.png');
+  avatar.src = asset('hb/3d/bee-chill.webp');
   avatar.alt = '';
   const info = h('div', 'dn-info');
   info.append(h('p', 'dn-name', 'Mimi 蜜蜜'), h('p', 'dn-remark', '唱歌聊天台｜每晚九點開播，歡迎一起來聊天 🎤'));
@@ -84,15 +84,16 @@ export function donateView(): View {
 
   /* 贊助類型 */
   const types = h('section', 'card dn-types');
-  types.append(h('p', 'dn-types-t', '請選擇贊助方式'));
+  types.append(h('p', 'dn-types-t', '贊助方式'));
   const typeList = h('div', 'dn-type-list');
   const typeBtns = DONATE_TYPES.map((t, i) => {
     const b = h('button', `dn-type${i === 0 ? ' is-on' : ''}`);
     b.type = 'button';
     b.setAttribute('aria-pressed', String(i === 0));
-    const pic = h('div', 'dn-type-pic');
-    pic.append(clip(t.clip));
-    b.append(pic, typeIcon(t.icon), h('span', 'dn-type-n', t.name));
+    const art = h('img', 'dn-type-art');
+    art.src = asset(`hb/3d/${t.art}.webp`);
+    art.alt = '';
+    b.append(art, h('span', 'dn-type-n', t.name));
     b.addEventListener('click', () => selectType(t));
     typeList.append(b);
     return b;
@@ -105,7 +106,7 @@ export function donateView(): View {
   const introPic = h('div', 'dn-intro-pic');
   const introHead = h('div', 'dn-intro-h');
   const introDesc = h('p', 'dn-intro-d');
-  const toText = h('button', 'btn btn--action', '改用文字贊助試試');
+  const toText = h('button', 'btn btn--primary', '改用文字贊助試試');
   toText.type = 'button';
   toText.addEventListener('click', () => selectType(DONATE_TYPES[0]));
   intro.append(introPic, introHead, introDesc, h('p', 'dn-intro-note', '這個示範只開放文字贊助送出；正式站上這裡會是此贊助方式的專屬表單。'), toText);
@@ -219,7 +220,7 @@ export function donateView(): View {
   r1.append(h('span', '', '贊助金額'), sumAmount);
   const r2 = h('p', 'dn-sum-row is-total');
   r2.append(h('span', '', '小計（手續費另計）'), subtotal);
-  const go = h('button', 'btn btn--action dn-go', '立即贊助');
+  const go = h('button', 'btn btn--primary dn-go', '立即贊助');
   go.type = 'button';
   const back = h('button', 'dn-back');
   back.type = 'button';
@@ -229,7 +230,20 @@ export function donateView(): View {
   const quick = h('button', 'btn btn--outline-secondary', '快速贊助付款');
   multi.type = quick.type = 'button';
   payBtns.append(multi, quick);
-  summary.append(r1, r2, go, payBtns);
+  // 點數折抵：示範為訪客，點數一律 0
+  const pt = (label: string) => {
+    const r = h('p', 'dn-sum-row is-sub');
+    r.append(h('span', '', label), h('b', '', '0 點'));
+    return r;
+  };
+  const ptsChk = h('label', 'dn-pts');
+  const chk = h('input');
+  chk.type = 'checkbox';
+  chk.disabled = true;
+  ptsChk.append(chk, '使用點數折抵');
+  const foot = h('div', 'dn-sum-foot');
+  foot.append(r2, go);
+  summary.append(r1, pt('目前點數'), pt('本次可折抵點數'), ptsChk, foot, payBtns);
 
   /* 付款區 */
   const pay = h('section', 'card dn-pay');
