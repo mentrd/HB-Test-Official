@@ -1,22 +1,30 @@
+/* 色票對齊 HiveBee 前台 theme.css 的淺色主題 */
 :root {
-  --bg: #0e0a18;
-  --bg-2: #160f26;
-  --panel: rgba(28, 21, 46, 0.86);
-  --panel-solid: #1c152e;
-  --line: rgba(255, 255, 255, 0.1);
-  --text: #f6f2ff;
-  --muted: #b3a8cc;
-  --honey: #ffb805;
-  --honey-2: #f6d671;
-  --honey-3: #f9e5b2;
-  --violet: #b285e5;
-  --blue: #058aff;
-  --pink: #ff5fa2;
-  --ink: #171923;
-  --radius: 16px;
-  --font: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', system-ui, sans-serif;
-  --display: 'Outfit', 'Noto Sans TC', system-ui, sans-serif;
-  color-scheme: dark;
+  --basic: #ffffff;
+  --gray-100: #f8f8f8;
+  --gray-150: #f0f0f0;
+  --gray-200: #dadada;
+  --gray-300: #c7c7c7;
+  --gray-400: #8c8c8c;
+  --gray-450: #777777;
+  --gray-500: #515151;
+  --gray-600: #333333;
+  --gray-800: #1c1c1e;
+  --primary-dark: #eaa700;
+  --primary-normal: #f6d671;
+  --primary-light: #f9e5b2;
+  --primary-hover: #d59d12;
+  --secondary-dark: #ab005f;
+  --secondary-normal: #ba87f4;
+  --secondary-light: #e3cffb;
+  --accent-dark: #0008ea;
+  --accent-light: #007dea;
+  --failure: #f65f54;
+  --success: #41bd83;
+  --warning: #fdbd1a;
+  --line: rgba(0, 0, 0, 0.1);
+  --font: 'Noto Sans TC', 'Open Sans', 'Microsoft JhengHei', system-ui, sans-serif;
+  color-scheme: light;
 }
 
 *,
@@ -31,8 +39,8 @@ html {
 
 body {
   margin: 0;
-  background: var(--bg);
-  color: var(--text);
+  background: var(--gray-100);
+  color: var(--gray-600);
   font-family: var(--font);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -45,98 +53,182 @@ img {
 
 button,
 input,
-textarea {
+textarea,
+select {
   font: inherit;
   color: inherit;
 }
 
 a {
-  color: var(--honey-2);
+  color: var(--primary-dark);
 }
 
 :focus-visible {
-  outline: 3px solid var(--honey);
-  outline-offset: 3px;
+  outline: 2px solid var(--primary-dark);
+  outline-offset: 2px;
 }
 
+.ico {
+  display: inline-flex;
+  flex: none;
+  font-style: normal;
+  line-height: 1;
+}
+.ico svg {
+  width: 1em;
+  height: 1em;
+}
+
+/* 按鈕：對應前台 shared/Button.vue 的 variant */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  min-height: 44px;
-  padding: 10px 22px;
+  gap: 6px;
+  min-height: 36px;
+  padding: 8px 16px;
   border: 0;
-  border-radius: 999px;
+  border-radius: 6px;
+  font-size: 14px;
   font-weight: 700;
   text-decoration: none;
+  white-space: nowrap;
   cursor: pointer;
-  transition: transform 0.15s, box-shadow 0.2s, background 0.2s, opacity 0.2s;
-}
-.btn:hover {
-  transform: translateY(-1px);
+  transition: background 0.15s, color 0.15s, box-shadow 0.15s, opacity 0.15s;
 }
 .btn:disabled {
-  opacity: 0.55;
+  opacity: 0.6;
   cursor: not-allowed;
-  transform: none;
 }
-.btn--honey {
-  background: linear-gradient(135deg, #ffd34d, var(--honey) 55%, #f29a00);
-  color: var(--ink);
-  box-shadow: 0 8px 28px rgba(255, 184, 5, 0.35);
+.btn--primary {
+  background: var(--primary-dark);
+  color: #fff;
 }
-.btn--honey:hover {
-  box-shadow: 0 10px 34px rgba(255, 184, 5, 0.5);
+.btn--primary:hover:not(:disabled) {
+  background: var(--primary-hover);
 }
-.btn--line {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--text);
-  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.28);
+.btn--action {
+  background: var(--secondary-dark);
+  color: #fff;
 }
-.btn--line:hover {
-  background: rgba(255, 255, 255, 0.12);
+.btn--secondary {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+}
+.btn--query {
+  background: var(--primary-normal);
+  color: var(--gray-600);
+}
+.btn--outline-primary {
+  background: #fff;
+  color: var(--primary-dark);
+  box-shadow: inset 0 0 0 1px var(--primary-dark);
+}
+.btn--outline-primary.is-on {
+  background: var(--primary-dark);
+  color: #fff;
+}
+.btn--outline-secondary {
+  background: #fff;
+  color: var(--secondary-dark);
+  box-shadow: inset 0 0 0 1px var(--secondary-dark);
+}
+.btn--outline-secondary.is-on {
+  background: var(--secondary-dark);
+  color: #fff;
+}
+.btn--outline-neutral {
+  background: #fff;
+  color: var(--gray-500);
+  box-shadow: inset 0 0 0 1px var(--gray-300);
+}
+.btn--pill {
+  border-radius: 999px;
+}
+.btn--3xl {
+  min-height: 60px;
+  padding: 18px 36px;
+  border-radius: 18px;
+  font-size: 18px;
 }
 .btn--sm {
-  min-height: 36px;
-  padding: 6px 16px;
-  font-size: 14px;
+  min-height: 30px;
+  padding: 4px 12px;
+  font-size: 12px;
 }
 
-.chip {
+/* 膠囊分頁：對應前台 HorizontalNavbar 預設型 */
+.pill {
   display: inline-flex;
   align-items: center;
-  min-height: 34px;
-  padding: 4px 14px;
+  gap: 6px;
+  min-height: 32px;
+  padding: 4px 16px;
   border: 0;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.07);
-  box-shadow: inset 0 0 0 1px var(--line);
-  color: var(--muted);
-  font-size: 14px;
-  cursor: pointer;
-}
-.chip.is-on {
-  background: rgba(255, 184, 5, 0.16);
-  box-shadow: inset 0 0 0 1.5px var(--honey);
-  color: var(--honey-2);
+  border-radius: 18px;
+  background: var(--gray-150);
+  color: var(--gray-450);
+  font-size: 13px;
   font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
 }
-.chip:disabled {
-  opacity: 0.45;
+.pill.is-on {
+  background: var(--primary-dark);
+  color: #fff;
+}
+.pill:disabled {
   cursor: not-allowed;
-}
-.chip.is-ghost {
-  cursor: default;
+  opacity: 0.55;
 }
 
-.visually-hidden {
+.field-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--gray-200);
+  border-radius: 4px;
+  background: #fff;
+  font-size: 12px;
+}
+.field-input::placeholder {
+  color: var(--gray-300);
+}
+.field-input:focus {
+  outline: none;
+  border-color: var(--gray-450);
+}
+
+.card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+  border-radius: 99px;
+  background: var(--gray-300);
+  transition: background 0.2s;
+}
+.switch::after {
+  content: '';
   position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s;
+}
+.switch.is-on {
+  background: var(--success);
+}
+.switch.is-on::after {
+  transform: translateX(18px);
 }
 
 @media (prefers-reduced-motion: reduce) {

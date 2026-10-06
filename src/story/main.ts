@@ -37,19 +37,19 @@ measure();
 function cardHTML(b: Beat) {
   if (b.card === 'hero')
     return `
-      <div class="card card--hero">
-        <p class="kicker">概念示範・HiveBee 直播贊助工具</p>
+      <div class="hcard hcard--hero">
+        <p class="hero-tag">HiveBee｜創作者工具平台</p>
         <h1 class="hero-t">讓每一次支持，<br>都成為直播裡的<span>精彩時刻</span></h1>
         <p class="hero-s">跟著實況主 Mimi 開一場台，看一筆贊助怎麼變成全場的高潮。</p>
       </div>
       <p class="cue"><span id="cue-t">往下捲動開始</span><span class="cue-line"></span></p>`;
   if (b.card === 'finale')
     return `
-      <div class="card card--finale">
+      <div class="hcard hcard--finale">
         <h2 class="hero-t">先體驗，<br>再開始你的<span>下一場直播</span></h2>
         <div class="acts">
-          <button class="btn btn--honey" type="button" data-goto="explore">自己玩一次</button>
-          <a class="btn btn--line" href="${LINKS.signup}" target="_blank" rel="noopener">開始使用 HiveBee</a>
+          <button class="btn btn--primary btn--3xl" type="button" data-goto="explore">自己玩一次</button>
+          <a class="btn btn--outline-primary btn--3xl" href="${LINKS.signup}" target="_blank" rel="noopener">開始使用 HiveBee</a>
         </div>
         <button class="link-top" type="button" data-top>回到開頭</button>
       </div>`;
@@ -58,8 +58,8 @@ function cardHTML(b: Beat) {
       <p class="kicker">${esc(b.kicker!)}</p>
       <h2 class="cap-t">${esc(b.title!)}</h2>
       <p class="cap-s">${esc(b.sub!)}</p>
-      ${b.scene ? '<button class="btn btn--line btn--sm cap-see" type="button" data-see>看畫面</button>' : ''}
-      ${b.id === 'c08' ? `<a class="btn btn--honey cap-cta" href="${LINKS.signup}" target="_blank" rel="noopener">開始使用 HiveBee</a>` : ''}
+      ${b.scene ? '<button class="btn btn--outline-primary btn--pill btn--sm cap-see" type="button" data-see>看畫面</button>' : ''}
+      ${b.id === 'c08' ? `<a class="btn btn--primary btn--pill cap-cta" href="${LINKS.signup}" target="_blank" rel="noopener">開始使用 HiveBee</a>` : ''}
     </div>`;
 }
 
@@ -237,6 +237,7 @@ async function showScene(scene?: Scene, beat?: Beat) {
   browser.classList.toggle('is-on', scene?.device === 'browser');
   if (beat?.chip) chip.innerHTML = `<small>${esc(beat.chip[0])}</small><b>${esc(beat.chip[1])}</b>`;
   chip.classList.toggle('is-on', !!beat?.chip);
+  if (scene?.device === 'browser') $('#browser .url').textContent = scene.screen === 'dashboard' ? 'www.hivebee.com.tw/dashboard' : 'OBS 預覽・直播畫面';
   if (!scene || touch) return;
   await ensureFrame(scene.device, scene);
   if (sceneKey !== key) return;
@@ -328,9 +329,10 @@ const xframe = $<HTMLIFrameElement>('#xframe');
 const fullLink = $<HTMLAnchorElement>('#launch-fs');
 $$<HTMLButtonElement>('.launch-b').forEach((b) =>
   b.addEventListener('click', () => {
-    $$('.launch-b').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
-    xframe.contentWindow?.hbDemo?.show(b.dataset.screen!);
-    fullLink.href = `${DEMO}?screen=${b.dataset.screen}`;
+    $$('.launch-b').forEach((x) => x.classList.toggle('is-on', x === b));
+    const params = b.dataset.params ?? '';
+    xframe.contentWindow?.hbDemo?.show(b.dataset.screen!, params);
+    fullLink.href = `${DEMO}?screen=${b.dataset.screen}${params ? `&${params}` : ''}`;
   }),
 );
 

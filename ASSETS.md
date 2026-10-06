@@ -2,19 +2,42 @@
 
 每新增一個素材都要記錄在這裡。公開 repo 內不得放入來源或授權不明的素材。
 
-## 品牌
+## HiveBee 品牌素材
 
-| 檔案 | 來源 | 授權 |
-|---|---|---|
-| `public/brand/mark.svg` | HiveBee 官網 Logo（`logo_hivebee1.svg`） | HiveBee 自有品牌素材 |
-| `public/brand/logo-dark.svg` | HiveBee 官網 Logo 深色背景版（`logo_hivebee2_dark.svg`） | HiveBee 自有品牌素材 |
+以下都是 HiveBee 自有素材，取自前台（Hivebee-Frontstage-Frontend）已公開提供的檔案。
+
+| 檔案 | 來源 |
+|---|---|
+| `public/hb/logo.svg`、`public/hb/mark.svg` | `public/images/logo_hivebee2.svg`、`logo_hivebee1.svg` |
+| `public/hb/icons/*.svg` | `app/assets/icons/`（工具與贊助類型 icon） |
+| `public/hb/img/alert-bee.webp` | `public/images/loading.gif`，轉成 WebP |
+| `public/hb/img/happy.png`、`work.png` | `public/images/notification-bees/` |
+| `public/hb/img/nothing.png`、`default_head.png`、`creditcard.png` | `public/images/` |
+| `public/hb/img/treasure*.png` | `public/images/train/` |
+| `public/hb/tool/*.mp4` | `public/images/toolbox/*.gif`，截取前 6 秒轉成 MP4 |
+
+## 圖示
+
+`src/shared/icons.ts` 由 `scripts/fetch-icons.mjs` 從 Iconify 下載後內嵌，與 HiveBee 後台使用的圖示相同。
+
+| 圖示集 | 授權 |
+|---|---|
+| Material Design Icons（mdi） | Apache 2.0 |
+| MingCute | Apache 2.0 |
+| Material Symbols | Apache 2.0 |
+| Google Material Icons（ic） | Apache 2.0 |
+| IconPark | Apache 2.0 |
+| Entypo+ | CC BY-SA 4.0（© Daniel Bruce） |
+| Heroicons | MIT |
+| Tabler Icons | MIT |
+| Majesticons | MIT |
 
 ## 字型
 
 | 字型 | 來源 | 授權 |
 |---|---|---|
 | Noto Sans TC | Google Fonts | SIL Open Font License 1.1 |
-| Outfit | Google Fonts | SIL Open Font License 1.1 |
+| Open Sans | Google Fonts | SIL Open Font License 1.1 |
 
 ## 影片
 
@@ -27,4 +50,4 @@
 
 - 實況主「Mimi 蜜蜜」、觀眾暱稱、金額與後台數據皆為虛構示意
 - 套件中心內的套件（應援燈牌、蜜蜂雨、幸運轉盤、即時投票）為示意範例，不代表已上架的實際套件
-- 通知動畫、金幣掉落等效果為本專案自行實作，未使用 HiveBee 正式產品的程式碼
+- 版面、色票、文案與預設值參照 HiveBee 前後台的規格重新實作，未使用 HiveBee 正式產品的程式碼
