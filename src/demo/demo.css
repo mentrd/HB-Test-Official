@@ -204,13 +204,25 @@ body {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.w-card-h b:first-child {
+  flex: 1;
+  min-width: 0;
+}
+.w-card-h b:last-child {
+  flex: none;
+}
+/* 示範畫面空間有限：卡片留言最多 3 行、通知留言最多 2 行，避免長留言蓋住其他工具 */
 .w-card-m {
+  display: -webkit-box;
   min-height: calc(36 * var(--u));
   margin: 0;
   padding: calc(6 * var(--u)) calc(12 * var(--u));
+  overflow: hidden;
   background: #fff;
   color: #000;
   overflow-wrap: anywhere;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 /* 互動目標（橫式）：外框底部實色往上漸透明 */
@@ -346,8 +358,12 @@ body {
   color: #eaa700;
 }
 .hb-msg {
+  display: -webkit-box;
   margin: 0.1em 0 0;
+  overflow: hidden;
   overflow-wrap: anywhere;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   text-shadow: 0 0 0.12em rgba(0, 0, 0, 0.55);
 }
 .fx-wiggle .l {
@@ -1166,9 +1182,9 @@ body {
   font-size: 13px;
   font-weight: 700;
 }
+/* 不做內層捲動：巢狀捲動在 iframe 裡會連帶捲走整頁，按鈕容易被捲出視線 */
 .loop-phone {
-  height: min(780px, calc(100vh - 140px));
-  overflow-y: auto;
+  overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 24px;
   background: #fff;
@@ -1443,6 +1459,7 @@ body {
   color: #fff;
 }
 .db-content {
+  overscroll-behavior: contain;
   flex: 1;
   min-width: 0;
   padding: 48px 56px;
@@ -2132,9 +2149,6 @@ body {
   }
   .v-loop {
     grid-template-columns: minmax(0, 1fr);
-  }
-  .loop-phone {
-    height: auto;
   }
   .db-side {
     display: none;

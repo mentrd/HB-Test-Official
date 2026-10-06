@@ -326,6 +326,28 @@ addEventListener('keydown', (e) => {
 
 /* ---------------------------------------------------------------- 自己玩一次 */
 const xframe = $<HTMLIFrameElement>('#xframe');
+
+// 完整流程與贊助頁依內容長高，避免 iframe 內外兩層捲動；直播畫面與後台維持固定高度。
+xframe.addEventListener('load', () => {
+  const doc = xframe.contentDocument;
+  const stage = doc?.querySelector<HTMLElement>('.demo-stage');
+  if (!stage) return;
+  const fit = () => {
+    const screen = stage.dataset.screen ?? '';
+    const content = stage.firstElementChild as HTMLElement | null;
+    const auto = content && (screen === 'loop' || screen === 'donate');
+    const pad = screen === 'loop' ? 32 : 0;
+    xframe.style.height = auto ? `${Math.ceil(content.getBoundingClientRect().height + pad)}px` : '';
+  };
+  const ro = new ResizeObserver(fit);
+  const watch = () => {
+    ro.disconnect();
+    if (stage.firstElementChild) ro.observe(stage.firstElementChild);
+    fit();
+  };
+  new MutationObserver(watch).observe(stage, { childList: true, attributes: true, attributeFilter: ['data-screen'] });
+  watch();
+});
 const fullLink = $<HTMLAnchorElement>('#launch-fs');
 $$<HTMLButtonElement>('.launch-b').forEach((b) =>
   b.addEventListener('click', () => {
