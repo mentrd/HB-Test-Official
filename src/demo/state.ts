@@ -74,9 +74,9 @@ const GOAL_START = 6800;
 const COUNTDOWN_START = 2 * 3600 + 15 * 60;
 
 const defaultModes = (): AlertMode[] => [
-  { id: 1, title: '一般感謝', min: 15, max: 299, enabled: true, image: 'hb/img/alert-bee.webp', template: DEFAULT_TEMPLATE, effect: 'pulse', size: 35, seconds: 5 },
-  { id: 2, title: '閃亮登場', min: 300, max: 1499, enabled: true, image: 'hb/img/alert-bee.webp', template: DEFAULT_TEMPLATE, effect: 'wiggle', size: 40, seconds: 5 },
-  { id: 3, title: '超級金主', min: 1500, max: null, enabled: true, image: 'hb/img/happy.png', template: '哇！${Name}　豪氣贊助　${Amount}！', effect: 'rubberBand', size: 40, seconds: 6 },
+  { id: 1, title: '一般感謝', min: 15, max: 299, enabled: true, image: 'hb/3d/bee-chill.webp', template: DEFAULT_TEMPLATE, effect: 'pulse', size: 35, seconds: 5 },
+  { id: 2, title: '閃亮登場', min: 300, max: 1499, enabled: true, image: 'hb/3d/bee-laptop.webp', template: DEFAULT_TEMPLATE, effect: 'wiggle', size: 40, seconds: 5 },
+  { id: 3, title: '超級金主', min: 1500, max: null, enabled: true, image: 'hb/3d/pot-crown.webp', template: '哇！${Name}　豪氣贊助　${Amount}！', effect: 'rubberBand', size: 40, seconds: 6 },
 ];
 
 export const state = {

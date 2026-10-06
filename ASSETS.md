@@ -8,7 +8,8 @@
 
 | 檔案 | 來源 |
 |---|---|
-| `public/hb/logo.svg`、`public/hb/mark.svg` | `public/images/logo_hivebee2.svg`、`logo_hivebee1.svg` |
+| `public/hb/logo.svg`、`logo-dark.svg`、`mark.svg` | `public/images/logo_hivebee2.svg`、`logo_hivebee2_dark.svg`、`logo_hivebee1.svg` |
+| `public/hb/3d/*.webp` | HiveBee 2.0 設計稿（Figma「HiveBee 2.0」0923 新提案風格・蜜蜂元素），自公開檢視畫面截圖去背；正式上線前應改用設計師原檔匯出 |
 | `public/hb/icons/*.svg` | `app/assets/icons/`（工具與贊助類型 icon） |
 | `public/hb/img/alert-bee.webp` | `public/images/loading.gif`，轉成 WebP |
 | `public/hb/img/happy.png`、`work.png` | `public/images/notification-bees/` |

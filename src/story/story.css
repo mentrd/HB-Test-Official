@@ -48,7 +48,7 @@
   transition: background-color 0.6s;
 }
 .is-past .veil {
-  background-color: rgba(248, 248, 248, 0.92);
+  background-color: rgba(17, 17, 19, 0.9);
 }
 .loader {
   position: fixed;
@@ -83,7 +83,8 @@
   gap: 18px;
   height: 72px;
   padding: 0 clamp(16px, 4vw, 48px);
-  background: #fff;
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line);
 }
 .hdr-brand img {
@@ -127,7 +128,7 @@
   gap: 2px;
   padding: 8px 6px;
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.86);
+  background: color-mix(in srgb, var(--surface) 85%, transparent);
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
   transform: translateY(-50%);
 }
@@ -171,6 +172,7 @@
 main {
   position: relative;
   z-index: 10;
+  overflow-x: clip;
 }
 .beat {
   position: relative;
@@ -201,7 +203,8 @@ main {
   margin-left: clamp(96px, 9vw, 150px);
   padding: 24px 28px;
   border-radius: 18px;
-  background: #fff;
+  background: var(--surface);
+  border: 1px solid rgba(236, 72, 170, 0.35);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.18);
   opacity: 0;
   transform: translateY(18px);
@@ -246,7 +249,8 @@ main {
   margin: 0 20px;
   padding: 40px 48px;
   border-radius: 24px;
-  background: #fff;
+  background: var(--surface);
+  border: 1px solid rgba(236, 72, 170, 0.35);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
   text-align: center;
   transition: opacity 0.6s;
@@ -381,7 +385,7 @@ main {
   height: calc(100% - 40px - 34px);
   overflow: hidden;
   border-radius: 8px 8px 40px 40px;
-  background: #fff;
+  background: var(--bg);
 }
 .phone-bar {
   display: grid;
@@ -398,7 +402,7 @@ main {
   height: 800px;
   overflow: hidden;
   border-radius: 14px;
-  background: #fff;
+  background: var(--surface);
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12), 0 40px 120px rgba(0, 0, 0, 0.45);
   transform: translateY(-46%) scale(var(--bs, 0.5));
   transform-origin: right center;
@@ -452,7 +456,7 @@ main {
   margin: 0;
   padding: 10px 20px;
   border-radius: 14px;
-  background: #fff;
+  background: var(--surface);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), inset 0 0 0 2px var(--primary-dark);
   opacity: 0;
   transform: translateY(-10px);
@@ -482,7 +486,7 @@ main {
 .explore {
   position: relative;
   padding: 120px clamp(16px, 5vw, 64px) 80px;
-  background: linear-gradient(180deg, transparent, var(--gray-100) 160px);
+  background: linear-gradient(180deg, transparent, var(--bg) 160px);
 }
 .explore-head {
   max-width: 760px;
@@ -520,7 +524,7 @@ main {
   margin: 0 auto;
   overflow: hidden;
   border-radius: 16px;
-  background: #fff;
+  background: var(--surface);
   box-shadow: 0 0 0 1px var(--line), 0 30px 80px rgba(0, 0, 0, 0.12);
 }
 .xframe {
@@ -539,8 +543,9 @@ main {
 .ftr {
   position: relative;
   padding: 48px clamp(16px, 5vw, 64px) 64px;
-  background: var(--primary-dark);
-  color: #fff;
+  background: var(--surface);
+  border-top: 2px solid var(--primary-dark);
+  color: var(--gray-500);
   text-align: center;
 }
 .ftr-acts {
@@ -551,13 +556,13 @@ main {
   margin-bottom: 22px;
 }
 .ftr-cta {
-  background: #fff;
-  color: var(--primary-dark);
+  background: var(--gold-grad);
+  color: var(--on-gold);
 }
 .ftr-line {
   background: transparent;
-  color: #fff;
-  box-shadow: inset 0 0 0 2px #fff;
+  color: var(--gray-800);
+  box-shadow: inset 0 0 0 2px var(--gold-line);
 }
 .ftr p {
   max-width: 760px;
@@ -593,7 +598,7 @@ main {
   flex-direction: column;
   height: 88%;
   border-radius: 24px 24px 0 0;
-  background: #fff;
+  background: var(--surface);
   animation: sheet-up 0.4s cubic-bezier(0.2, 0.9, 0.2, 1);
 }
 @keyframes sheet-up {
@@ -652,7 +657,12 @@ main {
     display: inline-flex;
   }
   .hcard {
-    padding: 28px 22px;
+    width: calc(100vw - 32px);
+    margin: 0 16px;
+    padding: 28px 20px;
+  }
+  .hcard .hero-t {
+    font-size: clamp(22px, 7.2vw, 34px);
   }
   .xwin,
   .launch {
@@ -660,5 +670,92 @@ main {
   }
   .explore-mobile {
     display: block;
+  }
+}
+
+/* ---------------------------------------------------------------- HiveBee 2.0：前台 Dark，局部霓虹與 3D 蜜蜂 */
+.hdr-brand .logo {
+  height: 34px;
+}
+.caption {
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45), 0 0 32px rgba(236, 72, 170, 0.18);
+}
+.hcard {
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 60px rgba(236, 72, 170, 0.22), 0 0 120px rgba(245, 176, 0, 0.08);
+}
+.hcard-art {
+  position: absolute;
+  pointer-events: none;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.45));
+}
+.hcard-art.a1 {
+  left: -120px;
+  bottom: -60px;
+  width: 170px;
+  animation: float 5s ease-in-out infinite;
+}
+.hcard-art.a2 {
+  right: -60px;
+  top: -70px;
+  width: 150px;
+  animation: float 6s ease-in-out infinite reverse;
+}
+.hcard-art.a3 {
+  left: 50%;
+  top: -96px;
+  width: 200px;
+  transform: translateX(-50%);
+}
+@keyframes float {
+  50% {
+    transform: translateY(-10px) rotate(-2deg);
+  }
+}
+.hero-tag {
+  background: var(--gold-soft);
+  box-shadow: inset 0 0 0 1px var(--gold-line);
+  color: var(--primary-dark);
+}
+.hero-t span {
+  background: linear-gradient(90deg, #ffd04a, #f5b000 45%, #ff7ac0);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.kicker {
+  color: var(--primary-dark);
+}
+.ch[aria-current='true'] .ch-dot {
+  box-shadow: 0 0 10px var(--primary-dark);
+}
+.chip-stat {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 0 0 1.5px var(--primary-dark), 0 0 24px rgba(245, 176, 0, 0.25);
+}
+.ftr b {
+  color: var(--gray-800);
+}
+.explore-t {
+  background: linear-gradient(90deg, #ffd04a, #f5b000 50%, #ff7ac0);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@media (max-width: 899px), (hover: none) and (pointer: coarse) {
+  .hcard-art.a1 {
+    left: -10px;
+    bottom: -70px;
+    width: 100px;
+  }
+  .hcard-art.a2 {
+    right: -6px;
+    top: -64px;
+    width: 86px;
+  }
+  .hcard-art.a3 {
+    top: -70px;
+    width: 140px;
+  }
+  .hdr-brand .logo {
+    height: 28px;
   }
 }

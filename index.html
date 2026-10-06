@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-Hant-TW">
+<html lang="zh-Hant-TW" data-theme="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -8,7 +8,7 @@
       http-equiv="Content-Security-Policy"
       content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; frame-src 'self'; base-uri 'self'; form-action 'none'"
     />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#111113" />
     <meta name="description" content="HiveBee 直播贊助工具的概念示範：跟著實況主開一場台，看一筆贊助怎麼變成直播裡的精彩時刻。" />
     <title>HiveBee｜讓每一次支持，都成為直播裡的精彩時刻</title>
     <link rel="icon" href="hb/mark.svg" type="image/svg+xml" />
@@ -19,7 +19,7 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Open+Sans:wght@400;700;800&display=swap"
     />
   </head>
-  <body>
+  <body class="glow-bg">
     <div id="vh-probe" aria-hidden="true"></div>
 
     <div class="film-layer" aria-hidden="true">
@@ -31,7 +31,7 @@
     <div class="loader" id="loader" aria-hidden="true"><span></span></div>
 
     <header class="hdr">
-      <a class="hdr-brand" href="./" aria-label="HiveBee 宣傳站首頁"><img src="hb/logo.svg" alt="HiveBee" /></a>
+      <a class="hdr-brand" href="./" aria-label="HiveBee 宣傳站首頁"><span class="logo"><img class="logo-l" src="hb/logo.svg" alt="HiveBee" /><img class="logo-d" src="hb/logo-dark.svg" alt="HiveBee" /></span></a>
       <span class="hdr-note">概念示範・非正式服務頁</span>
       <nav class="hdr-nav" aria-label="主要連結">
         <button type="button" data-goto="explore">互動示範</button>
