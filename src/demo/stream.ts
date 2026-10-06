@@ -32,8 +32,8 @@ export function renderReply(mode: AlertMode, d: Pick<Donation, 'name' | 'amount'
   for (const part of mode.template.split(/(\$\{\w+\})/)) {
     const key = part.match(/^\$\{(\w+)\}$/)?.[1];
     const text = key ? (values[key] ?? '') : part;
-    // 變數整段不換行，避免金額或暱稱被拆成兩行。
-    const target = key ? box.appendChild(h('span', 'kwg')) : box;
+    // 金額整段不換行；暱稱可能長達 25 字，允許換行。
+    const target = key === 'Amount' ? box.appendChild(h('span', 'kwg')) : box;
     for (const ch of text) {
       if (/\s/.test(ch)) {
         target.append(document.createTextNode(ch));

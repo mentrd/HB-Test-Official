@@ -302,8 +302,11 @@ export function donateView(): View {
     if (amountErr.textContent) ok = false;
     return ok;
   }
+  const reveal = (n: HTMLElement) => requestAnimationFrame(() => n.scrollIntoView({ block: 'nearest', behavior: 'smooth' }));
   go.addEventListener('click', () => {
-    if (validate()) setStep(2);
+    if (!validate()) return;
+    setStep(2);
+    reveal(summary);
   });
   back.addEventListener('click', () => setStep(1));
   const choose = (m: 'quick' | 'multi') => {
@@ -313,6 +316,7 @@ export function donateView(): View {
     if (m === 'quick') renderQuick();
     else renderMulti();
     pay.hidden = false;
+    reveal(pay);
   };
   quick.addEventListener('click', () => choose('quick'));
   multi.addEventListener('click', () => choose('multi'));
