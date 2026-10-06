@@ -86,17 +86,43 @@ export function donateView(): View {
   const types = h('section', 'card dn-types');
   types.append(h('p', 'dn-types-t', '請選擇贊助方式'));
   const typeList = h('div', 'dn-type-list');
-  DONATE_TYPES.forEach((t, i) => {
+  const typeBtns = DONATE_TYPES.map((t, i) => {
     const b = h('button', `dn-type${i === 0 ? ' is-on' : ''}`);
     b.type = 'button';
-    b.disabled = !t.enabled;
-    if (!t.enabled) b.title = '示範只開放文字贊助';
+    b.setAttribute('aria-pressed', String(i === 0));
     const pic = h('div', 'dn-type-pic');
     pic.append(clip(t.clip));
     b.append(pic, typeIcon(t.icon), h('span', 'dn-type-n', t.name));
+    b.addEventListener('click', () => selectType(t));
     typeList.append(b);
+    return b;
   });
   types.append(typeList);
+
+  /* 其他贊助方式：示範只顯示介紹，不能送出 */
+  const intro = h('section', 'card dn-intro');
+  intro.hidden = true;
+  const introPic = h('div', 'dn-intro-pic');
+  const introHead = h('div', 'dn-intro-h');
+  const introDesc = h('p', 'dn-intro-d');
+  const toText = h('button', 'btn btn--action', '改用文字贊助試試');
+  toText.type = 'button';
+  toText.addEventListener('click', () => selectType(DONATE_TYPES[0]));
+  intro.append(introPic, introHead, introDesc, h('p', 'dn-intro-note', '這個示範只開放文字贊助送出；正式站上這裡會是此贊助方式的專屬表單。'), toText);
+  function selectType(t: (typeof DONATE_TYPES)[number]) {
+    typeBtns.forEach((b, i) => {
+      const on = DONATE_TYPES[i] === t;
+      b.classList.toggle('is-on', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
+    dn.dataset.type = t.key;
+    intro.hidden = t.enabled;
+    if (!t.enabled) {
+      introPic.replaceChildren(clip(t.clip));
+      introHead.replaceChildren(typeIcon(t.icon, 'is-lg'), h('b', '', t.name));
+      introDesc.textContent = t.desc;
+    }
+  }
 
   /* 步驟條 */
   const steps = h('div', 'dn-steps');
@@ -273,7 +299,7 @@ export function donateView(): View {
 
   const body = h('div', 'dn-body');
   const right = h('div', 'dn-right');
-  right.append(steps, form, summary, back, pay);
+  right.append(steps, intro, form, summary, back, pay);
   body.append(types, right);
   main.append(banner, user, body);
   dn.append(side, mhead, main);
