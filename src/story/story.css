@@ -10,9 +10,12 @@
 }
 
 /* ---------------------------------------------------------------- 影片層（真人影片在最底層） */
+/* 高度固定為網址列收合後的最大高度：用 inset:0 會隨網址列伸縮重新縮放背景，手機上看起來一直跳 */
 .film-layer {
   position: fixed;
-  inset: 0;
+  inset: 0 0 auto;
+  height: 100vh;
+  height: 100lvh;
   z-index: 0;
   overflow: hidden;
   background: #120c22;
@@ -757,5 +760,13 @@ main {
   }
   .hdr-brand .logo {
     height: 28px;
+  }
+}
+
+/* 手機上 3D 蜜蜂不浮動：小螢幕上持續位移容易被看成畫面在抖 */
+@media (max-width: 899px), (hover: none) and (pointer: coarse) {
+  .hcard-art.a1,
+  .hcard-art.a2 {
+    animation: none;
   }
 }

@@ -2696,3 +2696,19 @@ body {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+/* 手機上後台不做固定高度與內層捲動，改跟著整頁捲動，避免網址列伸縮時外框跳動 */
+@media (max-width: 899px) {
+  .db,
+  .demo-bar ~ .demo-stage .db {
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+  }
+  .db-body {
+    display: block;
+  }
+  .db-content {
+    overflow: visible;
+  }
+}
